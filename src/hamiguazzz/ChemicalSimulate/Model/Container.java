@@ -1,12 +1,13 @@
 package hamiguazzz.ChemicalSimulate.Model;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Container implements Cloneable{
 	private final HashMap<String,Substance> substances = new HashMap<>();
 	private final HashSet<Reaction> reactions = new HashSet<>();
 	private double volume=1.0;
-	private double time = 0.0;
+	private BigDecimal time = new BigDecimal("0");
 
 	public Container() {
 	}
@@ -48,13 +49,13 @@ public class Container implements Cloneable{
 		return new Container(this);
 	}
 
-	public void next(double time){
+	public void next(BigDecimal time){
 		for (Reaction reaction:reactions)
-			reaction.react(time);
-		this.time+=time;
+			reaction.react(time.doubleValue());
+		this.time=this.time.add(time);
 	}
 
-	public double getTime() {
+	public BigDecimal getTime() {
 		return time;
 	}
 
