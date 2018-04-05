@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Environment implements Runnable {
 
-	public static BigDecimal FPS = new BigDecimal("20");
+	public static BigDecimal FPS = new BigDecimal("50");
 	public static BigDecimal Multi = new BigDecimal("10");
 	private Container mainContainer;
 	private final BigDecimal dt;
@@ -71,6 +71,10 @@ public class Environment implements Runnable {
 		this.isRunned = true;
 	}
 
+	public BigDecimal getEndTime() {
+		return endTime;
+	}
+
 	private void clear() {
 		if (historyContainers.size() > 0)
 			this.mainContainer = historyContainers.get(0);
@@ -83,6 +87,10 @@ public class Environment implements Runnable {
 	public void run() {
 		if (isRunned)return;
 		reRun();
+		afterRun();
+	}
+
+	public void afterRun() {
 	}
 
 	public synchronized void reRun(){
@@ -90,11 +98,15 @@ public class Environment implements Runnable {
 		counter.start();
 		Log.log.printInfoMessage("Run Start:End time is " + endTime+"s");
 		for (; getCurrentTime().compareTo(endTime)<1; mainContainer.next(dt)) {
-			save(mainContainer);
+			update();
 		}
 		counter.end();
 		Log.log.printInfoMessage("Run End:Calculate used time:" + counter);
 		isRunned = true;
+	}
+
+	public synchronized void update(){
+		save(mainContainer);
 	}
 
 }

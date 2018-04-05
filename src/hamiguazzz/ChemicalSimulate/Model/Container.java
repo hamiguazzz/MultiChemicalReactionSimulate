@@ -1,7 +1,10 @@
 package hamiguazzz.ChemicalSimulate.Model;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Container implements Cloneable{
 	private final HashMap<String,Substance> substances = new HashMap<>();
@@ -23,6 +26,10 @@ public class Container implements Cloneable{
 		this.reactions.addAll(clone_target.reactions);
 		this.volume = clone_target.volume;
 		this.time = clone_target.time;
+	}
+
+	public Set<String> getNamePool(){
+		return substances.keySet();
 	}
 
 	public void addSubstance(Substance substance){

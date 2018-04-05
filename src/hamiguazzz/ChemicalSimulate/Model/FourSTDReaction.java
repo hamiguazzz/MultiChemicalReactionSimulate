@@ -7,7 +7,7 @@ public class FourSTDReaction extends Reaction {
 	private final ArrayList<String> names = new ArrayList<>();
 	private double coefficient_K_positive;
 	private double coefficient_K_negative;
-	private ArrayList<Integer> coefficient_h;
+	private ArrayList<Double> coefficient_h;
 
 	public FourSTDReaction(Container container, ArrayList<Substance> substances) {
 		super(container);
@@ -35,7 +35,7 @@ public class FourSTDReaction extends Reaction {
 		this.coefficient_K_negative*=rate;
 	}
 
-	public FourSTDReaction(Container container, ArrayList<Substance> substances, ArrayList<Integer> coefficient_h,
+	public FourSTDReaction(Container container, ArrayList<Substance> substances, ArrayList<Double> coefficient_h,
 	                       double coefficient_K_positive, double coefficient_K_negative) {
 		this(container,substances);
 		this.coefficient_h = coefficient_h;
