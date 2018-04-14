@@ -5,6 +5,8 @@ import hamiguazzz.ChemicalSimulate.Model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -85,6 +87,11 @@ public class CreateCtrler {
 	private Button btnStart;
 
 	private Main main;
+
+	public void initialize() {
+		Image image = new Image("react.png",btnStart.getPrefHeight(),btnStart.getPrefHeight(),true,true);
+		btnStart.setGraphic(new ImageView(image));
+	}
 
 	private static Substance convertToSubstance(TextField name,TextField mol){
 		return new Substance(name.getText(),mol !=null? Double.valueOf(mol.getText()):0.0);
