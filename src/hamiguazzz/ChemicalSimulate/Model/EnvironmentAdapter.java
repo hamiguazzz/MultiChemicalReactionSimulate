@@ -42,6 +42,8 @@ public class EnvironmentAdapter {
 				list.add(getSeries(sn));
 			re.getData().addAll(list);
 		}
+		re.setPrefWidth(900);
+		re.setPrefHeight(600);
 		return re;
 	}
 

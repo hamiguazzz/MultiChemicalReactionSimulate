@@ -1,10 +1,7 @@
 package hamiguazzz.ChemicalSimulate.View;
 
 
-import hamiguazzz.ChemicalSimulate.Model.Container;
-import hamiguazzz.ChemicalSimulate.Model.Environment;
-import hamiguazzz.ChemicalSimulate.Model.FourSTDReaction;
-import hamiguazzz.ChemicalSimulate.Model.Substance;
+import hamiguazzz.ChemicalSimulate.Model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -87,7 +84,7 @@ public class CreateCtrler {
 	@FXML
 	private Button btnStart;
 
-	private Environment environment = null;
+	private Main main;
 
 	private static Substance convertToSubstance(TextField name,TextField mol){
 		return new Substance(name.getText(),mol !=null? Double.valueOf(mol.getText()):0.0);
@@ -140,16 +137,34 @@ public class CreateCtrler {
 	}
 
 	public Environment getEnvironment() {
-		if(environment!=null)return environment;
-		environment = new Environment(getContainer(), t1.getText(), t2.getText());
+		Environment environment = new Environment(getContainer(), t1.getText(), t2.getText()) {
+			@Override
+			public synchronized void update() {
+				super.update();
+				getMain().pb.setProgress(getCurrentTime().divide(getEndTime()).doubleValue());
+			}
+
+			@Override
+			public void afterRun() {
+				getMain().afterCalc();
+			}
+		};
 		Environment.FPS = new BigDecimal(t3.getText());
 		Environment.Multi=new BigDecimal(t4.getText());
 		return environment;
 	}
 
+	public void setMain(Main main) {
+		this.main = main;
+	}
+
+	public Main getMain() {
+		return main;
+	}
+
 	@FXML
 	public void start(){
-		System.out.println(getEnvironment());
+		getMain().call();
 	}
 
 }

@@ -2,7 +2,6 @@ package hamiguazzz.ChemicalSimulate.View;
 
 import hamiguazzz.ChemicalSimulate.Model.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
@@ -16,13 +15,12 @@ public class TestApp extends Application {
 	Reaction reaction;
 	Reaction reaction2;
 	private ProgressBar pb;
-	private BorderPane root;
 
 	@Override
 	public void start(Stage stage) {
 		initEnvironment();
 
-		root = new BorderPane();
+		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Progress Controls");

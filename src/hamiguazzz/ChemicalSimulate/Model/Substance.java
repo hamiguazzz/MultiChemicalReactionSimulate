@@ -1,5 +1,10 @@
 package hamiguazzz.ChemicalSimulate.Model;
 
+import hamiguazzz.ChemicalSimulate.Log.Log;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Substance implements Cloneable{
 	private final String name;
 	double mol = 0;
@@ -36,6 +41,8 @@ public class Substance implements Cloneable{
 
 	@Override
 	public String toString() {
-		return "["+getName()+":"+mol+"mol]"+"@" + Integer.toHexString(hashCode());
+		if (Log.log.isDebugOn())
+			return "["+getName()+":"+mol+"mol]"+"@" + Integer.toHexString(hashCode());
+		return "["+getName()+":"+new BigDecimal(mol).setScale(6, RoundingMode.HALF_UP)+"mol]";
 	}
 }

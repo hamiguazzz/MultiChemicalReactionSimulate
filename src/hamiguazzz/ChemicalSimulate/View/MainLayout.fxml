@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hamiguazzz.ChemicalSimulate.View.MainCtrler">
+   <top>
+       <MenuBar BorderPane.alignment="CENTER">
+           <Menu mnemonicParsing="false" text="Edit">
+               <MenuItem fx:id="showInfo" mnemonicParsing="false" onAction="#showInfo" text="ShowInfo"/>
+               <MenuItem fx:id="editOrigin" mnemonicParsing="false" onAction="#returnToOrigin" text="EditOrigin"/>
+           </Menu>
+       </MenuBar>
+   </top>
+   <right>
+      <TextArea fx:id="logText" editable="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
