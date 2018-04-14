@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Environment implements Runnable {
 
-	public static BigDecimal FPS = new BigDecimal("50");
+	public static BigDecimal FPS = new BigDecimal("100");
 	public static BigDecimal Multi = new BigDecimal("10");
 	private Container mainContainer;
 	private final BigDecimal dt;
@@ -90,10 +90,10 @@ public class Environment implements Runnable {
 		afterRun();
 	}
 
-	public void afterRun() {
+	protected void afterRun() {
 	}
 
-	public synchronized void reRun(){
+	private synchronized void reRun(){
 		TimeCounter counter = new TimeCounter();
 		counter.start();
 		Log.log.printInfoMessage("Run Start:End time is " + endTime+"s");
@@ -105,7 +105,7 @@ public class Environment implements Runnable {
 		isRunned = true;
 	}
 
-	public synchronized void update(){
+	protected synchronized void update(){
 		save(mainContainer);
 	}
 

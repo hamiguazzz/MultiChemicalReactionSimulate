@@ -33,7 +33,9 @@ public class Container implements Cloneable{
 	}
 
 	public void addSubstance(Substance substance){
-		this.substances.put(substance.getName(), substance);
+		if (find(substance.getName())==null)
+			this.substances.put(substance.getName(), substance);
+		else find(substance.getName()).add(substance.mol);
 	}
 
 	public boolean addReaction(Reaction reaction){

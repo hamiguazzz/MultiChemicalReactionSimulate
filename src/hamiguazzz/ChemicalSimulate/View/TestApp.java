@@ -3,20 +3,18 @@ package hamiguazzz.ChemicalSimulate.View;
 import hamiguazzz.ChemicalSimulate.Model.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class TestApp extends Application {
 	Environment environment;
 	Reaction reaction;
+	Reaction reaction2;
 	private ProgressBar pb;
 	private BorderPane root;
 
@@ -44,31 +42,51 @@ public class TestApp extends Application {
 	}
 
 	private void initEnvironment() {
-		ArrayList<Double> chs = new ArrayList<>();
-		chs.add(3.0);
-		chs.add(2.0);
-		chs.add(0.5);
-		chs.add(0.5);
+		Container container = new Container();container.setVolume(1);
 
-		ArrayList<Substance> substances = new ArrayList<>();
-		substances.add(new Substance("X",3));
-		substances.add(new Substance("Y",2));
-		substances.add(new Substance("Z"));
-		substances.add(new Substance("Z"));
+		ArrayList<Double> chs1 = new ArrayList<>();
+		chs1.add(1.0);
+		chs1.add(1.0);
+		chs1.add(0.5);
+		chs1.add(0.5);
 
-		double kp = 1,kn = 4;
-		Container container = new Container();
-		reaction = new FourSTDReaction(container,substances,chs,kp,kn);
-		reaction.increaseRate(0.001);
-		container.setVolume(1);container.addReaction(reaction);
+		ArrayList<Substance> substances1 = new ArrayList<>();
+		substances1.add(new Substance("X",6));
+		substances1.add(new Substance("Y",4));
+		substances1.add(new Substance("Z"));
+		substances1.add(new Substance("Z"));
 
-		environment = new Environment(container,"0.00001","20"){
+		reaction = new FourSTDReaction(container,substances1,chs1,0.005,0.005);
+		reaction.increaseRate(1);
+		container.addReaction(reaction);
+
+		ArrayList<Double> chs2 = new ArrayList<>();
+		chs2.add(1.0);
+		chs2.add(2.0);
+		chs2.add(0.5);
+		chs2.add(0.5);
+
+		ArrayList<Substance> substances2 = new ArrayList<>();
+		substances2.add(new Substance("X"));
+		substances2.add(new Substance("Y"));
+		substances2.add(new Substance("W"));
+		substances2.add(new Substance("W"));
+
+		reaction2 = new FourSTDReaction(container,substances2,chs2,0.005,0.005);
+		reaction2.increaseRate(1);
+		container.addReaction(reaction2);
+
+		Environment.FPS = new BigDecimal("5");
+
+
+
+		environment = new Environment(container,"0.0001","1.0"){
 			@Override
 			public synchronized void update() {
 				super.update();
-				if (getCurrentTime().doubleValue() == 5.0)getMainContainer().setVolume(0.5);
-				if (getCurrentTime().doubleValue() == 2.0)reaction.increaseRate(5);
-				if (getCurrentTime().doubleValue() == 10.0)getMainContainer().find("X").add(3);
+//				if (getCurrentTime().doubleValue() == 5.0)getMainContainer().setVolume(0.5);
+//				if (getCurrentTime().doubleValue() == 2.0)reaction.increaseRate(5);
+//				if (getCurrentTime().doubleValue() == 10.0)getMainContainer().find("X").add(3);
 				pb.setProgress(getCurrentTime().divide(getEndTime()).doubleValue());
 			}
 			@Override
@@ -79,11 +97,14 @@ public class TestApp extends Application {
 	}
 
 	private void afterCalc() {
-		pb.setVisible(false);
-
-		System.out.println(environment.getKeys().size());
-		EnvironmentAdapter adapter = new EnvironmentAdapter(environment);
-		Platform.runLater(() -> root.setCenter(adapter.getChart("a", "")));
+		pb.setVisible(true);
+		ArrayList<Container> history = environment.getHistory();
+		System.out.println(history.get(history.size()-1).find("X"));
+		System.out.println(history.get(history.size()-1).find("Y"));
+		System.out.println(history.get(history.size()-1).find("Z"));
+		System.out.println(history.get(history.size()-1).find("W"));
+		//EnvironmentAdapter adapter = new EnvironmentAdapter(environment);
+		//Platform.runLater(() -> root.setCenter(adapter.getChart("X+2Y=Z,X+2Y=W+Q", "")));
 	}
 
 

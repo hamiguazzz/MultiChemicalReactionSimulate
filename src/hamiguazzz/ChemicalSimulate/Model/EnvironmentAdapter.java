@@ -17,7 +17,7 @@ public class EnvironmentAdapter {
 	public static XYChart getChart(String title) {
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
-		LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+		LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 		lineChart.setTitle(title);
 		return lineChart;
 	}

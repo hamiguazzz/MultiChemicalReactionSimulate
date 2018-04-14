@@ -3,7 +3,7 @@ package hamiguazzz.ChemicalSimulate.Model;
 public abstract class Reaction{
 	private final Container container;
 
-	public Container getContainer(){
+	protected Container getContainer(){
 		return  this.container;
 	}
 

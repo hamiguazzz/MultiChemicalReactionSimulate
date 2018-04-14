@@ -1,5 +1,6 @@
-/bin/
-/.idea/
-/Test/
+Result/
+.idea/
+Test/
 *.iml
-/out/
+out/
+.gitignore

@@ -1,8 +1,8 @@
 package hamiguazzz.ChemicalSimulate.Model;
 
-public class Substance implements Comparable<Substance>,Cloneable{
+public class Substance implements Cloneable{
 	private final String name;
-	public double mol = 0;
+	double mol = 0;
 
 
 	public Substance(String name) {
@@ -27,12 +27,6 @@ public class Substance implements Comparable<Substance>,Cloneable{
 			mol-=x;
 		else
 			mol=0;
-	}
-
-	@Override
-	public int compareTo(Substance o) {
-		if (this.mol==o.mol)return 0;
-		return this.mol>o.mol?1:-1;
 	}
 
 	@Override

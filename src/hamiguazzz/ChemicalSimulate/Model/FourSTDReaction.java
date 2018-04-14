@@ -9,13 +9,12 @@ public class FourSTDReaction extends Reaction {
 	private double coefficient_K_negative;
 	private ArrayList<Double> coefficient_h;
 
-	public FourSTDReaction(Container container, ArrayList<Substance> substances) {
+	private FourSTDReaction(Container container, ArrayList<Substance> substances) {
 		super(container);
 		int count = 4;
 		assert substances.size()>= count;
 		for (int i = 0; i < count; i++) {
-			if (container.find(substances.get(i).getName())==null)
-				container.addSubstance(substances.get(i).clone());
+			container.addSubstance(substances.get(i).clone());
 			names.add(substances.get(i).getName());
 		}
 		coefficient_h = new ArrayList<>();
